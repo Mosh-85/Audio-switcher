@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Audio Switcher
+Comment=Switch audio output and input device groups
+Exec=audio-switcher
+Icon=audio-headset
+Categories=AudioVideo;Audio;Mixer;Qt;
+StartupNotify=false

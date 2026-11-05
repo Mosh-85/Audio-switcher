@@ -1,0 +1,15 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Id": "org.audioswitcher.widget",
+        "Name": "Audio Switcher",
+        "Description": "Switch between audio device groups",
+        "Icon": "audio-headset",
+        "Authors": [{ "Name": "Audio Switcher" }],
+        "Category": "Multimedia",
+        "License": "GPL-3.0",
+        "Version": "0.1.0",
+        "Website": "https://github.com/Mosh-85/Audio-switcher"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0"
+}
