@@ -117,6 +117,19 @@ class Backend(QObject):
         self._groups = [g for g in self._groups if g.id != gid]
         self._persist()
 
+    @Slot(str, int)
+    def moveGroup(self, gid: str, direction: int):
+        if direction not in (-1, 1):
+            raise ValueError("Group move direction must be -1 or 1")
+        for index, group in enumerate(self._groups):
+            if group.id == gid:
+                target = index + direction
+                if 0 <= target < len(self._groups):
+                    self._groups[index], self._groups[target] = self._groups[target], self._groups[index]
+                    self._persist()
+                    self._refresh_active()
+                return
+
     @Slot(str)
     def applyGroup(self, gid):
         for g in self._groups:

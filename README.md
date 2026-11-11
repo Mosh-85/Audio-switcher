@@ -61,6 +61,9 @@ Remove the widget from your panel first, then run `./install.sh` again and resta
 3. **Save**, or **Save & use** to switch immediately.
 4. Switch groups from the tray menu, the widget, or the **Use** button.
 
+Select a group and use **Move up** or **Move down** to change its order. This order
+is also used by the tray menu, tray click cycling, and the widget.
+
 Closing the window sends the app to the tray. Left-click the tray icon to cycle through
 groups, or right-click and choose **Edit groups…** to reopen the editor. If there are
 no groups yet, left-click opens the editor.

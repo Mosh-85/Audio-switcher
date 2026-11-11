@@ -137,6 +137,27 @@ ApplicationWindow {
                     opacity: 0.6
                 }
             }
+            RowLayout {
+                Layout.fillWidth: true
+                Button {
+                    objectName: "moveGroupUp"
+                    Layout.fillWidth: true
+                    text: "Move up"
+                    icon.name: "go-up"
+                    enabled: win.selectedId !== "" && backend.groups.length > 1
+                             && backend.groups[0].id !== win.selectedId
+                    onClicked: backend.moveGroup(win.selectedId, -1)
+                }
+                Button {
+                    objectName: "moveGroupDown"
+                    Layout.fillWidth: true
+                    text: "Move down"
+                    icon.name: "go-down"
+                    enabled: win.selectedId !== "" && backend.groups.length > 1
+                             && backend.groups[backend.groups.length - 1].id !== win.selectedId
+                    onClicked: backend.moveGroup(win.selectedId, 1)
+                }
+            }
             Button {
                 Layout.fillWidth: true
                 icon.name: "list-add"
@@ -160,6 +181,7 @@ ApplicationWindow {
                 Label { text: "Name" }
                 TextField {
                     id: nameField
+                    objectName: "groupName"
                     Layout.fillWidth: true
                     placeholderText: "e.g. Headset"
                 }
