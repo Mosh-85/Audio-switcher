@@ -48,7 +48,7 @@ Start it with `audio-switcher` (or from the application menu). Tick **Start at l
 
 ### Add the widget
 
-Right-click the desktop or a panel, choose **Edit Mode → Add Widgets**, and search for **Audio Switcher**. To show only icons, right-click the widget, choose **Configure** and tick **Show only icons**.
+Right-click the desktop or a panel, choose **Edit Mode → Add Widgets**, and search for **Audio Switcher**. To show only icons, right-click the widget, choose **Configure** and tick **Show only icons**. Icons are centered in the available widget space and wrap when necessary.
 
 ### Updating
 
@@ -61,7 +61,9 @@ Remove the widget from your panel first, then run `./install.sh` again and resta
 3. **Save**, or **Save & use** to switch immediately.
 4. Switch groups from the tray menu, the widget, or the **Use** button.
 
-Closing the window sends the app to the tray. Left-click the tray icon to reopen it.
+Closing the window sends the app to the tray. Left-click the tray icon to cycle through
+groups, or right-click and choose **Edit groups…** to reopen the editor. If there are
+no groups yet, left-click opens the editor.
 
 ### Command line
 

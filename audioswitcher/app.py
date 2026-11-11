@@ -136,13 +136,25 @@ class Tray:
         self.tray.setToolTip("Audio Switcher")
         self.menu = QMenu()
         self.tray.setContextMenu(self.menu)
-        self.tray.activated.connect(
-            lambda r: show_window() if r == QSystemTrayIcon.ActivationReason.Trigger else None
-        )
+        self.tray.activated.connect(self.on_activated)
         self.show_window = show_window
         backend.changed.connect(self.rebuild)
         self.rebuild()
         self.tray.show()
+
+    def on_activated(self, reason):
+        if reason != QSystemTrayIcon.ActivationReason.Trigger:
+            return
+        self.backend._poll()
+        groups = self.backend._groups
+        if not groups:
+            self.show_window()
+            return
+        index = next(
+            (i for i, group in enumerate(groups) if group.id == self.backend._active),
+            -1,
+        )
+        self.backend.applyGroup(groups[(index + 1) % len(groups)].id)
 
     def rebuild(self):
         self.menu.clear()

@@ -73,7 +73,9 @@ PlasmoidItem {
         }
         GridLayout {
             id: strip
-            anchors.fill: parent
+            anchors.centerIn: parent
+            width: Math.min(parent.width, implicitWidth)
+            height: Math.min(parent.height, implicitHeight)
             visible: root.iconsOnly
             flow: compact.vertical ? GridLayout.TopToBottom : GridLayout.LeftToRight
             rows: compact.vertical ? -1 : 1
@@ -85,7 +87,6 @@ PlasmoidItem {
                 delegate: PlasmaComponents.ToolButton {
                     Layout.fillHeight: !compact.vertical
                     Layout.fillWidth: compact.vertical
-                    Layout.preferredWidth: height > 0 && !compact.vertical ? height : implicitWidth
                     icon.name: modelData.icon
                     checkable: true
                     checked: modelData.id === root.activeId
@@ -113,22 +114,34 @@ PlasmoidItem {
             opacity: 0.7
         }
 
-        Flow {
+        Item {
             visible: root.iconsOnly
             Layout.fillWidth: true
+            Layout.fillHeight: root.iconsOnly
             Layout.margins: Kirigami.Units.smallSpacing
-            spacing: Kirigami.Units.smallSpacing
-            Repeater {
-                model: root.iconsOnly ? root.groups : []
-                delegate: PlasmaComponents.ToolButton {
-                    icon.name: modelData.icon
-                    icon.width: Kirigami.Units.iconSizes.large
-                    icon.height: Kirigami.Units.iconSizes.large
-                    checkable: true
-                    checked: modelData.id === root.activeId
-                    display: QQC2.AbstractButton.IconOnly
-                    onClicked: root.apply(modelData.id)
-                    PlasmaComponents.ToolTip { text: modelData.name }
+            Flow {
+                id: iconGrid
+                readonly property real cellWidth: Math.min(parent.width,
+                    Kirigami.Units.iconSizes.large + 2 * Kirigami.Units.largeSpacing)
+                readonly property int columns: cellWidth > 0
+                    ? Math.max(1, Math.floor((parent.width + spacing) / (cellWidth + spacing))) : 1
+                anchors.centerIn: parent
+                width: Math.max(0, Math.min(root.groups.length, columns) * (cellWidth + spacing) - spacing)
+                height: childrenRect.height
+                spacing: Kirigami.Units.smallSpacing
+                Repeater {
+                    model: root.iconsOnly ? root.groups : []
+                    delegate: PlasmaComponents.ToolButton {
+                        width: iconGrid.cellWidth
+                        icon.name: modelData.icon
+                        icon.width: Kirigami.Units.iconSizes.large
+                        icon.height: Kirigami.Units.iconSizes.large
+                        checkable: true
+                        checked: modelData.id === root.activeId
+                        display: QQC2.AbstractButton.IconOnly
+                        onClicked: root.apply(modelData.id)
+                        PlasmaComponents.ToolTip { text: modelData.name }
+                    }
                 }
             }
         }
@@ -154,6 +167,6 @@ PlasmoidItem {
             }
         }
 
-        Item { Layout.fillHeight: true }
+        Item { visible: !root.iconsOnly; Layout.fillHeight: !root.iconsOnly }
     }
 }
