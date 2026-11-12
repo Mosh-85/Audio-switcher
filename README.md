@@ -54,6 +54,11 @@ Right-click the desktop or a panel, choose **Edit Mode → Add Widgets**, and se
 
 Remove the widget from your panel first, then run `./install.sh` again and restart the app (tray menu → Quit, then start it again). Replacing a widget while Plasma has it loaded can hang plasmashell.
 
+After a Fedora upgrade changes the Python version, the app may need to be reinstalled
+for the new Python. To reinstall only the app without updating the widget, run
+`python3 -m pip install --user --no-deps --no-build-isolation .` from the project
+folder, then restart Audio Switcher.
+
 ## Usage
 
 1. Click **New group**, give it a name and pick an icon.
